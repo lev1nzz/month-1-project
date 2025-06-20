@@ -26,8 +26,6 @@ def show_massage(): #Функция для выполнения вычислен
         messagebox.showinfo( "Твой ответ", f"{name1}  -  {name2}  =  {vichet}")
     
         
-        
-        
 
 root = Tk() #Основное окно приложения
 root.title("Мой калькулятор")

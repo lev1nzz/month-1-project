@@ -1,74 +1,66 @@
-# from tkinter import *
-# from tkinter import ttk
-
-# root = Tk()
-# root.title('Конверт Валют')
-# root.geometry('400x500+500+200')
-
-# label = Label(text = 'ВЫБЕРИ ВАЛЮТУ', font=("Arial", 14))
-# icon = PhotoImage(file = "icon.png")
-# root.iconphoto(False, icon)
-# label.pack()
-
-# languages = ["USD/RUB", "", "", ""]
-# combobox = ttk.Combobox(values=languages)
-# combobox.pack(anchor=NW, padx=6, pady=6)
-
-# root.mainloop()
-
-
 # USD/RUB 
 def usd_rub():
-        usd = float(input('Введи число (USD): '))
+        usd = float(input('Введи число (USD): ')) # с usd в rub
         count_rub = usd * 78
-        print(count_rub, 'RUB') 
+        count_rub_rounded = round(count_rub, 2)  # Округляем до 2 знаков после точки
+        print(count_rub_rounded, 'RUB') 
         
 
 def rub_usd():
-    rub = float(input('Введи число (RUB): '))
+    rub = float(input('Введи число (RUB): ')) # c rub B usd
     count_usd = rub / 78
-    print(count_usd, 'USD')    
+    count_usd_rounded = round(count_usd, 2)  # Округляем до 2 знаков после точки
+    print(count_usd_rounded, 'USD')    
 
 
-def choise_user_usd_rub():
-    choise = (input('Введи значение пары: 1 - USD/RUB; 2 - RUB/USD:'))
-    if choise == '1':
-        usd_rub()
-    elif choise == '2':
-        rub_usd()
+def choise_user_usd_rub(): # выбор пользователя в мейне 
+    while True:
+        choise = (input('Введи значение пары или "Вернуться назад": 1 - USD/RUB; 2 - RUB/USD; 3 - Назад: '))
+        if choise == '1':
+            usd_rub()
+        elif choise == '2':
+            rub_usd()
+        else:
+            main()
 
 
 # USD/EUR
 def usd_eur():
-        usd = float(input('Введи число (USD): '))
-        count_rub = usd * 0.85
-        print(count_rub, 'EUR') 
+        usd = int(input('Введи число (USD): '))
+        count_eur = usd * 0.85
+        count_eur_rounded = round(count_eur, 2)  # Округляем до 2 знаков после точки
+        print(count_eur_rounded, 'EUR') 
         
 
 def eur_usd():
-    eur = float(input('Введи число (EUR): '))
+    eur = int(input('Введи число (EUR): '))
     count_usd = eur / 0.85
-    print(count_usd, 'USD')
+    count_usd_eur_rounded = round(count_usd, 2)  # Округляем до 2 знаков после точки
+    print(count_usd_eur_rounded, 'USD')
     
 
-def choise_user_usd_eur():
-    choise = (input('Введи значение пары: 1 - USD/EUR; 2 - EUR/USD:'))
-    if choise == '1':
-        usd_eur()
-    elif choise == '2':
-        eur_usd()
+def choise_user_usd_eur():  # выбор пользователя в мейне 
+    while True:
+        choise = (input('Введи значение пары или "Вернуться назад": 1 - USD/EUR; 2 - EUR/USD; 3 - Назад: '))
+        if choise == '1':
+            usd_eur()
+        elif choise == '2':
+            eur_usd()
+        else:
+            main()
         
 
-def main():
-    print('Необходимо выбрать валюту:')
-    chois_curr = (input('1 - RUB; 2 - USD: '))
+def main(): # Основная функция программы
+    print('Необходимо выбрать валюту или "Выйти":')
+    chois_curr = (input('1 - RUB; 2 - USD; 3 - Выйти: '))
     print(chois_curr)
     
     if chois_curr == '1':
         return choise_user_usd_rub()
     elif chois_curr == '2':
         return choise_user_usd_eur()
-        
+    else:
+        exit()   
         
         
 if __name__ == '__main__':

@@ -50,15 +50,43 @@ def choise_user_usd_eur():  # выбор пользователя в мейне
             main()
         
 
+# CNY_RUB
+def cny_rub(): # с cny в rub
+    cny = float(input('Введи число (CNY): '))
+    count_rub = cny * 10.99
+    count_rub_rounded = round(count_rub, 2)
+    print(count_rub_rounded, 'RUB')
+    
+    
+def rub_cny():
+    rub = float(input('Введи число (RUB): ')) # с rub в cny
+    count_cny = rub / 10.99
+    count_cny_rounded = round(count_cny, 2)  # Округляем до 2 знаков после точки
+    print(count_cny_rounded, 'CNY') 
+
+
+def choise_user_cny_rub():  # выбор пользователя в мейне 
+    while True:
+        choise = (input('Введи значение пары или "Вернуться назад": 1 - CNY/RUB; 2 - RUB/CNY; 3 - Назад: '))
+        if choise == '1':
+            cny_rub()
+        elif choise == '2':
+            rub_cny()
+        else:
+            main()
+
+
 def main(): # Основная функция программы
     print('Необходимо выбрать валюту или "Выйти":')
-    chois_curr = (input('1 - RUB; 2 - USD; 3 - Выйти: '))
+    chois_curr = (input('1 - RUB; 2 - USD; 3 - CNY; 4 - Выйти: '))
     print(chois_curr)
     
     if chois_curr == '1':
         return choise_user_usd_rub()
     elif chois_curr == '2':
         return choise_user_usd_eur()
+    elif chois_curr == '3':
+        return choise_user_cny_rub()
     else:
         exit()   
         

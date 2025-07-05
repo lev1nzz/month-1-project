@@ -1,95 +1,67 @@
-# USD/RUB 
-def usd_rub():
-        usd = float(input('Введи число (USD): ')) # с usd в rub
-        count_rub = usd * 78
-        count_rub_rounded = round(count_rub, 2)  # Округляем до 2 знаков после точки
-        print(count_rub_rounded, 'RUB') 
-        
+def convert_currency(amount: float, rate: float, from_curr: str, to_curr: str) -> float: #Общая функция для конвертации валюты
+    converted_amount = amount * rate
+    return round(converted_amount, 2)
 
-def rub_usd():
-    rub = float(input('Введи число (RUB): ')) # c rub B usd
-    count_usd = rub / 78
-    count_usd_rounded = round(count_usd, 2)  # Округляем до 2 знаков после точки
-    print(count_usd_rounded, 'USD')    
-
-
-def choise_user_usd_rub(): # выбор пользователя в мейне 
+def get_currency_input(currency_name: str) -> float: # Получение ввода суммы от пользователя
     while True:
-        choise = (input('Введи значение пары или "Вернуться назад": 1 - USD/RUB; 2 - RUB/USD; 3 - Назад: '))
-        if choise == '1':
-            usd_rub()
-        elif choise == '2':
-            rub_usd()
-        else:
-            main()
+        try:
+            amount = float(input(f'Введите сумму в {currency_name}: '))
+            if amount >= 0:
+                return amount
+            print("Сумма должна быть положительной. Попробуйте снова.")
+        except ValueError:
+            print("Ошибка: введите числовое значение.")
 
-
-# USD/EUR
-def usd_eur():
-        usd = int(input('Введи число (USD): '))
-        count_eur = usd * 0.85
-        count_eur_rounded = round(count_eur, 2)  # Округляем до 2 знаков после точки
-        print(count_eur_rounded, 'EUR') 
-        
-
-def eur_usd():
-    eur = int(input('Введи число (EUR): '))
-    count_usd = eur / 0.85
-    count_usd_eur_rounded = round(count_usd, 2)  # Округляем до 2 знаков после точки
-    print(count_usd_eur_rounded, 'USD')
-    
-
-def choise_user_usd_eur():  # выбор пользователя в мейне 
+def currency_pair_handler(pair_name: str, direct_rate: float, reverse_rate: float, curr1: str, curr2: str): #Обработчик для пары валют
     while True:
-        choise = (input('Введи значение пары или "Вернуться назад": 1 - USD/EUR; 2 - EUR/USD; 3 - Назад: '))
-        if choise == '1':
-            usd_eur()
-        elif choise == '2':
-            eur_usd()
-        else:
-            main()
+        choice = input(f'Выберите направление конвертации ({pair_name}):\n'
+                      f'1 - {curr1} → {curr2}\n'
+                      f'2 - {curr2} → {curr1}\n'
+                      f'3 - Назад\n'
+                      'Ваш выбор: ')
         
+        if choice == '1':
+            amount = get_currency_input(curr1)
+            result = convert_currency(amount, direct_rate, curr1, curr2)
+            print(f'{result} {curr2}')
+        elif choice == '2':
+            amount = get_currency_input(curr2)
+            result = convert_currency(amount, reverse_rate, curr2, curr1)
+            print(f'{result} {curr1}')
+        elif choice == '3':
+            return
+        else:
+            print("Неверный ввод. Попробуйте снова.")
 
-# CNY_RUB
-def cny_rub(): # с cny в rub
-    cny = float(input('Введи число (CNY): '))
-    count_rub = cny * 10.99
-    count_rub_rounded = round(count_rub, 2)
-    print(count_rub_rounded, 'RUB')
-    
-    
-def rub_cny():
-    rub = float(input('Введи число (RUB): ')) # с rub в cny
-    count_cny = rub / 10.99
-    count_cny_rounded = round(count_cny, 2)  # Округляем до 2 знаков после точки
-    print(count_cny_rounded, 'CNY') 
+def usd_rub_handler(): # Обработчик пары USD/RUB
+    currency_pair_handler("USD/RUB", 78, 1/78, "USD", "RUB")
 
+def usd_eur_handler(): #Обработчик пары USD/EUR
+    currency_pair_handler("USD/EUR", 0.85, 1/0.85, "USD", "EUR")
 
-def choise_user_cny_rub():  # выбор пользователя в мейне 
+def cny_rub_handler(): #Обработчик пары CNY/RUB
+    currency_pair_handler("CNY/RUB", 10.99, 1/10.99, "CNY", "RUB")
+
+def main(): #Основная функция программы
     while True:
-        choise = (input('Введи значение пары или "Вернуться назад": 1 - CNY/RUB; 2 - RUB/CNY; 3 - Назад: '))
-        if choise == '1':
-            cny_rub()
-        elif choise == '2':
-            rub_cny()
+        print('\nВыберите валютную пару или выход:')
+        choice = input('1 - USD/RUB\n'
+                      '2 - USD/EUR\n'
+                      '3 - CNY/RUB\n'
+                      '4 - Выйти\n'
+                      'Ваш выбор: ')
+        
+        if choice == '1':
+            usd_rub_handler()
+        elif choice == '2':
+            usd_eur_handler()
+        elif choice == '3':
+            cny_rub_handler()
+        elif choice == '4':
+            print("До свидания!")
+            break
         else:
-            main()
+            print("Неверный ввод. Попробуйте снова.")
 
-
-def main(): # Основная функция программы
-    print('Необходимо выбрать валюту или "Выйти":')
-    chois_curr = (input('1 - RUB; 2 - USD; 3 - CNY; 4 - Выйти: '))
-    print(chois_curr)
-    
-    if chois_curr == '1':
-        return choise_user_usd_rub()
-    elif chois_curr == '2':
-        return choise_user_usd_eur()
-    elif chois_curr == '3':
-        return choise_user_cny_rub()
-    else:
-        exit()   
-        
-        
 if __name__ == '__main__':
     main()
